@@ -11,7 +11,7 @@ const MyApp = () => {
   return (
     <Consumer>
       {({ products, dispatchLoader, loader }) => {
-        console.log('reduxsdf', products, loader)
+        // console.log('reduxsdf', products, loader)
         return <>
           {products && products.all && products.all.map(item => (
             <p key={item.id}>{item.id}-{item.name}</p>
