@@ -3,10 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { productReducer, loaderReducer, GET_PRODUCTS } from '../hook'
 import axios from 'axios'
 
-const Axios = axios.create({
-  baseURL: 'https://api.spacexdata.com/v3/dragons'
-})
-
+const Axios = axios.create({ baseURL: 'https://api.spacexdata.com/v3/dragons' })
 export const AppContext = createContext({})
 
 export const Context = ({ children }) => {
@@ -18,9 +15,7 @@ export const Context = ({ children }) => {
       const response = await Axios.get()
       dispatchProducts({ type: GET_PRODUCTS, products: { all: response.data } })
     }
-    catch (e) {
-      console.log(e)
-    }
+    catch (e) { console.log(e) }
   }
 
   const hook = {
