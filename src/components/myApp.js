@@ -12,7 +12,7 @@ const MyApp = () => {
   return (
     <Consumer>
       {({ products, dispatchLoader, loader }) => {
-        // console.log('0000', products, loader)
+        console.log('0000', products, loader)
         return <>
           {products && products.all && products.all.map(item => (
             <p key={item.id}>{item.id}-{item.name}</p>
