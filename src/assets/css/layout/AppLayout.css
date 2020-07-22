@@ -6,10 +6,15 @@
   box-sizing: border-box;
 }
 
+.content {
+  width: 100%;
+}
+
 nav{
   background-color: #0082e6;
   height: 64px;
   width: 100%;
+  vertical-align: top;
 }
 
 label.logo{
@@ -23,11 +28,12 @@ label.logo{
 nav ul {
   float: right;
   margin-right: 10px;
+  z-index: 1;
 }
 
 nav ul li {
   display: inline-block;
-  line-height: 64px;
+  line-height: 57px;
   margin: 0 1px;
 }
 
@@ -45,10 +51,10 @@ a:hover{
 }
 
 .checkbtn {
-  font-size: 25px;
+  font-size: 18px;
   color: white;
   float: right;
-  line-height: 64px;
+  line-height: 58px;
   padding: 0 20px;
   /* margin-right: 40px; */
   cursor: pointer;

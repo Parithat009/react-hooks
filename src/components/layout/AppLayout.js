@@ -2,13 +2,12 @@ import React from 'react'
 import AppContent from './AppContent'
 import AppSidebar from './AppSidebar'
 import '../../assets/css/layout/AppLayout.css'
-import { UploadOutlined } from '@ant-design/icons';
 
-const AppLayout = () => {
+const AppLayout = (props) => {
   return (
     <div>
-      <AppSidebar />
-      <AppContent />
+      <AppSidebar {...props} />
+      <AppContent {...props} />
     </div>
   )
 }

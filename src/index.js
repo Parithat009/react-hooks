@@ -4,6 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './i18n'
 import 'semantic-ui-css/semantic.min.css'
+// import 'antd/dist/antd.css'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(

@@ -1,22 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import MyApp from '../myApp'
-import Contact from '../../pages/contact'
+import routes from '../../route/routes'
 
-const routes = [
-  {
-    component: MyApp,
-    exact: true,
-    path: '/'
-  },
-  {
-    component: Contact,
-    path: '/contact'
-  }
-]
-
-const AppContent = (props) => {
-  console.log(props)
+const AppContent = ({ match }) => {
   return (
     <div className='content' >
       <Switch>

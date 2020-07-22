@@ -1,26 +1,28 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
+import { Icon } from 'semantic-ui-react'
 import '../../assets/css/layout/AppSidebar.css'
+import routes from '../../route/routes'
 
-
-const AppSidebar = () => {
+const AppSidebar = ({ location }) => {
   return (
     <nav>
       <input type='checkbox' id='check' />
       <label htmlFor='check' className='checkbtn'>
-        <UploadOutlined />
+        <Icon name='numbered list'  />
       </label>
 
-      <label className='logo'>Hanuman World Phuket</label>
+      {location.pathname === '/'
+        ? <label className='logo'> รถของฉัน </label>
+        : <label className='logo'> ประวัติที่เคยใช้บริการ </label>
+      }
 
       <ul>
         {/* <li className='listName'>LOGO NAME </li> ใช้ในกรณี่ชื่อมันยาวๆ  */}
-        <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/contact'>About</NavLink></li>
-        {/* <li><NavLink href='#'>Service</NavLink></li>
-        <li><NavLink href='#'>Contact Us</NavLink></li>
-        <li><NavLink href='#'>Feedback</NavLink></li> */}
+        {routes && routes.map((route, i) => (
+          <li key={i}><NavLink to={route.path}>{route.title}</NavLink></li>
+        ))}
+
       </ul>
     </nav>
   )
