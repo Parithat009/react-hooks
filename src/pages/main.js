@@ -1,78 +1,62 @@
-import React from 'react'
-import cars from '../assets/image/cars.png'
+import React, { useContext, useEffect, useState } from 'react'
 import '../assets/css/main.css'
-import { Icon, TextArea,  Form } from 'semantic-ui-react'
+import { AppContext } from '../hook'
+import ListRender from '../components/listRender'
+import { Icon } from 'semantic-ui-react'
 
-const Main = ({ history }) => {
-  return (
-    <div className=''>
-      <div className='contain-img'>
-        <img src={cars} alt="car" className='img-car' onClick={() => history.push('/history')} />
-      </div>
+const Main = () => {
+  const [filterUsers, setFilterUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState('')
 
+  const { getData, users, editStatusUsers } = useContext(AppContext)
+
+  useEffect(() => {
+    setLoading(true)
+    getData().then(res => {
+      if (res.status === 'success') {
+        setLoading(false)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    setFilterUsers(
+      users && users.length > 0 && users.filter(user => {
+        return user.name.toLowerCase().indexOf(search) !== -1
+      })
+    )
+  }, [search, users])
+
+
+  if (loading) {
+    return <div className="loaders"><div className='loader'></div></div>
+  }
+  else {
+    return (
       <div className='card'>
-        <div className="ui inverted divided padded equal width grid">
-          <div className="center aligned row">
-            <div className="column">
-              Ford
-            </div>
-          </div>
-          <div className="center aligned row">
-            <div className="column">
-              <label>เข้ารับบริการครั้งต่อไป 01/01/2565</label>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="column">
-              <Icon color='orange' name='car' />
-              <label>Focus</label>
-            </div>
-            <div className="column">
-              <Icon color='teal' name='table' />
-              <label>กขค 1234</label>
-            </div>
-            <div className="column">
-              <Icon color='red' name='map marker alternate' />
-              <label>เชียงใหม่</label>
-            </div>
+        <div className='card-content'>
+          <div className='center column-2'>
+            <Icon name='search' color='grey' />
+            <input type='text' className='text-input' placeholder='Find by name'
+              onChange={(e) => setSearch(e.target.value.toLowerCase())}
+              value={search}
+            />
           </div>
-          <div className="row">
-
-            <div className="column">
-              <Icon color='pink' name='cart' />
-              <label>สีขาว</label>
-            </div>
-            <div className="column">
-              <Icon color='grey' name='clock outline' />
-              <label>5000 km.</label>
-            </div>
-            <div className="column">
-            </div>
+          <div className='column-1'>
+            <label className='list-text'>{users && users.length} People</label>
           </div>
         </div>
+
+        {
+          filterUsers && filterUsers.length > 0 && filterUsers.map((user, i) => (
+            <ListRender user={user} key={i} editStatusUsers={editStatusUsers} />
+          ))
+        }
+
       </div>
-
-      <div className='card'>
-        <div className="ui inverted divided padded equal width grid">
-
-          <div className="center aligned row">
-            <div className="column">
-              <label>เข้ารับบริการครั้งล่าสุด 07/07/2565</label>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="column">
-              <Form>
-                <TextArea rows={5} placeholder='Note ...' />
-              </Form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  )
+    )
+  }
 }
 export default Main

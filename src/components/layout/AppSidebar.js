@@ -9,13 +9,15 @@ const AppSidebar = ({ location }) => {
     <nav>
       <input type='checkbox' id='check' />
       <label htmlFor='check' className='checkbtn'>
-        <Icon name='numbered list'  />
+        <Icon name='numbered list' />
       </label>
 
-      {location.pathname === '/'
+      {/* {location.pathname === '/'
         ? <label className='logo'> รถของฉัน </label>
         : <label className='logo'> ประวัติที่เคยใช้บริการ </label>
-      }
+      } */}
+
+      <label className='logo'>Team Members</label>
 
       <ul>
         {/* <li className='listName'>LOGO NAME </li> ใช้ในกรณี่ชื่อมันยาวๆ  */}

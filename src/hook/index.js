@@ -1,9 +1,7 @@
 import { AppContext, Provider, Consumer } from './context'
-import { GET_PRODUCTS, DELETE_PRODUCT, productReducer } from './reducers/productReducer'
-import { OPEN_LOADER, CLOSE_LOADER, loaderReducer } from './reducers/loaderReducer'
+import { GET_USERS, usersReducer, EDIT_STATUS_USERS } from './reducers/userReducer'
 
 export {
-    AppContext, Provider, Consumer,
-    GET_PRODUCTS, DELETE_PRODUCT, productReducer,
-    OPEN_LOADER, CLOSE_LOADER, loaderReducer
+  AppContext, Provider, Consumer,
+  GET_USERS, EDIT_STATUS_USERS, usersReducer
 }

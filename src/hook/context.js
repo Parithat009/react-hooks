@@ -1,26 +1,55 @@
 import React, { createContext, useReducer } from 'react'
 import { withRouter } from 'react-router-dom'
-import { productReducer, loaderReducer, GET_PRODUCTS } from '../hook'
+import { usersReducer, GET_USERS, EDIT_STATUS_USERS } from '../hook'
 import axios from 'axios'
 
-const Axios = axios.create({ baseURL: 'https://api.spacexdata.com/v3/dragons' })
+const Axios = axios.create({ baseURL: 'http://jsonplaceholder.typicode.com/users' })
 export const AppContext = createContext({})
 
 export const Context = ({ children }) => {
-  const [products, dispatchProducts] = useReducer(productReducer, { all: [] })
-  const [loader, dispatchLoader] = useReducer(loaderReducer, { open: false, message: '' })
+  const [users, dispatchUsers] = useReducer(usersReducer, [])
 
   const getData = async () => {
     try {
       const response = await Axios.get()
-      dispatchProducts({ type: GET_PRODUCTS, products: { all: response.data } })
+      if (response.status === 200) {
+        let mockUser = []
+        response.data && response.data.length > 0 && response.data.map((item, i) => {
+          let element = {
+            ...item,
+            status: false
+          }
+          mockUser.push(element)
+        })
+        dispatchUsers({ type: GET_USERS, users: mockUser })
+        return { status: 'success' }
+      }
     }
-    catch (e) { console.log(e) }
+    catch (e) {
+      console.log(e)
+      return { status: 'fail' }
+    }
   }
 
+  const editStatusUsers = (id) => {
+    let mockUsers = []
+    users && users.length > 0 && users.map(user => {
+      let element = {}
+
+      if (user.id === id) {
+        element = { ...user, status: !user.status }
+      } else {
+        element = { ...user, status: false }
+      }
+
+      mockUsers.push(element)
+    })
+    dispatchUsers({ type: EDIT_STATUS_USERS, users: mockUsers })
+  }
+
+
   const hook = {
-    products, getData,
-    loader, dispatchLoader
+    users, getData, editStatusUsers
   }
 
   return (
